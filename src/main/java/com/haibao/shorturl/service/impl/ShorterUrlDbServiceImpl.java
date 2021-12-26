@@ -45,7 +45,7 @@ public class ShorterUrlDbServiceImpl implements IShorterStorageDbService {
         if( null != shorterUrlEntityList && shorterUrlEntityList.size() > 0){
             longUrl = shorterUrlEntityList.get(0).getLongUrl();
             if(StrUtil.isNotEmpty(longUrl)){
-                cacheService.setV2(CacheMetaEnum.CACHE_VLINK_SHORTER, shorterUrl, longUrl);
+                cacheService.set(CacheMetaEnum.CACHE_VLINK_SHORTER, shorterUrl, longUrl);
             }
         }
         return null;
@@ -64,7 +64,7 @@ public class ShorterUrlDbServiceImpl implements IShorterStorageDbService {
 
         if( null != shorterUrlEntityList && shorterUrlEntityList.size() > 0){
             v =  shorterUrlEntityList.get(0).getShorterGetter();
-            cacheService.setV2(CacheMetaEnum.CACHE_VLINK_LONG,url.hashCode(),v);
+            cacheService.set(CacheMetaEnum.CACHE_VLINK_LONG,url.hashCode(),v);
         }
         return null;
     }

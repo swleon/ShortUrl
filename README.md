@@ -26,10 +26,10 @@
 # url-controller
 
 
-## visit
+## visit 短链接访问
 
 
-**接口地址**:`/api/vlink/go/{shortUrl}`
+**接口地址**:`/api/go/{shortUrl}`
 
 
 **请求方式**:`GET`
@@ -83,10 +83,10 @@
 ```
 
 
-## to
+## to 长链接转短链接
 
 
-**接口地址**:`/api/vlink/to`
+**接口地址**:`/api/to`
 
 
 **请求方式**:`GET`
@@ -132,10 +132,10 @@
 ```
 
 
-## to
+## to 长链接转短链接，需要透传参数
 
 
-**接口地址**:`/api/vlink/toWithEnableTransParms`
+**接口地址**:`/api/toWithEnableTransParms`
 
 
 **请求方式**:`GET`

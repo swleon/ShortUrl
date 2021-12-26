@@ -14,7 +14,7 @@ import java.io.IOException;
  * @author wuque
  */
 @RestController
-@RequestMapping("/api/vlink")
+@RequestMapping("/api")
 @Slf4j
 public class UrlController {
 

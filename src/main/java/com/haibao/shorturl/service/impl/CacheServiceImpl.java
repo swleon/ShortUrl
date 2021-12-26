@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author wuque
@@ -24,11 +25,11 @@ public class CacheServiceImpl implements ICacheService {
 
     @Override
     public String get(CacheMetaEnum cacheMetaEnum, Object... key) {
-        return null;
+        return redisCache.getCacheObject(cacheMetaEnum.buildKey(key));
     }
 
     @Override
-    public void setV2(CacheMetaEnum cacheMetaEnum, Object key, String value) {
-
+    public void set(CacheMetaEnum cacheMetaEnum, Object key, String value) {
+        redisCache.setCacheObject(cacheMetaEnum.buildKey(key),value, cacheMetaEnum.getExpire(), TimeUnit.SECONDS);
     }
 }

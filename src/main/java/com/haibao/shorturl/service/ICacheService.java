@@ -7,5 +7,5 @@ public interface ICacheService {
 
     String get(CacheMetaEnum cacheMetaEnum, Object... key);
 
-    void setV2(CacheMetaEnum cacheMetaEnum, Object key, String value);
+    void set(CacheMetaEnum cacheMetaEnum, Object key, String value);
 }

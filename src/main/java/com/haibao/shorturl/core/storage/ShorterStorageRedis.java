@@ -58,8 +58,8 @@ public class ShorterStorageRedis<T extends IShorterGetter> implements IShorterSt
 
     @Override
     public void save(String url, T shorter) {
-        cacheService.setV2(CacheMetaEnum.CACHE_VLINK_LONG, url.hashCode(), GsonUtils.gsonString(shorter));
-        cacheService.setV2(CacheMetaEnum.CACHE_VLINK_SHORTER,shorter.getShorter(), url);
+        cacheService.set(CacheMetaEnum.CACHE_VLINK_LONG, url.hashCode(), GsonUtils.gsonString(shorter));
+        cacheService.set(CacheMetaEnum.CACHE_VLINK_SHORTER,shorter.getShorter(), url);
     }
 
     @Override

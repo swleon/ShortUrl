@@ -51,9 +51,10 @@ public class UrlComponent {
     @Resource
     IShorterStorageDbService shorterStorageDbService;
 
-    BlockingQueue<Map<String,String>> blockingQueue = new ArrayBlockingQueue<>(10000,true);
+    protected BlockingQueue<Map<String,String>> blockingQueue = new ArrayBlockingQueue<>(10000,true);
 
-    public static final String V_LINK = "https://v.xxxx.com";
+    //此处修改成自己的短域名即可，/api/go可配置nginx
+    public static final String V_LINK = "http://localhost:8082/api/go";
 
     /**
      * 获取长链接
