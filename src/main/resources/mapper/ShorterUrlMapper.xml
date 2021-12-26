@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haibao.shorturl.mapper.ShorterUrlMapper">
+  <resultMap id="BaseResultMap" type="ShorterUrlEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="shorter_url" jdbcType="VARCHAR" property="shorterUrl" />
+    <result column="shorter_getter_clz" jdbcType="VARCHAR" property="shorterGetterClz" />
+    <result column="visit_count" jdbcType="BIGINT" property="visitCount" />
+    <result column="created" jdbcType="INTEGER" property="created" />
+    <result column="updated" jdbcType="INTEGER" property="updated" />
+    <result column="isDeleted" jdbcType="TINYINT" property="isDeleted" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="ShorterUrlEntity">
+    <result column="long_url" jdbcType="LONGVARCHAR" property="longUrl" />
+    <result column="shorter_getter" jdbcType="LONGVARCHAR" property="shorterGetter" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, shorter_url, shorter_getter_clz, visit_count, created, updated, isDeleted
+  </sql>
+  <sql id="Blob_Column_List">
+    long_url, shorter_getter
+  </sql>
+
+  <select id="select" parameterType="ShorterUrlEntity"
+          resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shorterurl
+    where 1  > 0
+    <if test="id != null">
+     and id = #{id,jdbcType=BIGINT}
+    </if>
+
+    <if test="isDeleted != null">
+      and isDeleted = #{isDeleted}
+    </if>
+    <if test="longUrl != null">
+      and long_url = #{longUrl}
+    </if>
+    <if test="shorterUrl != null">
+      and shorter_url = #{shorterUrl}
+    </if>
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from shorterurl
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shorterurl
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="ShorterUrlEntity">
+    insert into shorterurl (id, shorter_url, shorter_getter_clz,
+                            visit_count, created, updated,
+                            isDeleted, long_url, shorter_getter
+    )
+    values (#{id,jdbcType=BIGINT}, #{shorterUrl,jdbcType=VARCHAR}, #{shorterGetterClz,jdbcType=VARCHAR},
+            #{visitCount,jdbcType=BIGINT}, #{created,jdbcType=INTEGER}, #{updated,jdbcType=INTEGER},
+            #{isDeleted,jdbcType=TINYINT}, #{longUrl,jdbcType=LONGVARCHAR}, #{shorterGetter,jdbcType=LONGVARCHAR}
+           )
+  </insert>
+  <insert id="insertSelective" parameterType="ShorterUrlEntity">
+    insert into shorterurl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="shorterUrl != null">
+        shorter_url,
+      </if>
+      <if test="shorterGetterClz != null">
+        shorter_getter_clz,
+      </if>
+      <if test="visitCount != null">
+        visit_count,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+      <if test="isDeleted != null">
+        isDeleted,
+      </if>
+      <if test="longUrl != null">
+        long_url,
+      </if>
+      <if test="shorterGetter != null">
+        shorter_getter,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="shorterUrl != null">
+        #{shorterUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shorterGetterClz != null">
+        #{shorterGetterClz,jdbcType=VARCHAR},
+      </if>
+      <if test="visitCount != null">
+        #{visitCount,jdbcType=BIGINT},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="longUrl != null">
+        #{longUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="shorterGetter != null">
+        #{shorterGetter,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="ShorterUrlEntity">
+    update shorterurl
+    <set>
+      <if test="shorterUrl != null">
+        shorter_url = #{shorterUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shorterGetterClz != null">
+        shorter_getter_clz = #{shorterGetterClz,jdbcType=VARCHAR},
+      </if>
+      <if test="visitCount != null">
+        visit_count = #{visitCount,jdbcType=BIGINT},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        isDeleted = #{isdeleted,jdbcType=TINYINT},
+      </if>
+      <if test="longUrl != null">
+        long_url = #{longUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="shorterGetter != null">
+        shorter_getter = #{shorterGetter,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="ShorterUrlEntity">
+    update shorterurl
+    set shorter_url = #{shorterUrl,jdbcType=VARCHAR},
+        shorter_getter_clz = #{shorterGetterClz,jdbcType=VARCHAR},
+        visit_count = #{visitCount,jdbcType=BIGINT},
+        created = #{created,jdbcType=INTEGER},
+        updated = #{updated,jdbcType=INTEGER},
+        isDeleted = #{isDeleted,jdbcType=TINYINT},
+        long_url = #{longUrl,jdbcType=LONGVARCHAR},
+        shorter_getter = #{shorterGetter,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ShorterUrlEntity">
+    update shorterurl
+    set shorter_url = #{shorterUrl,jdbcType=VARCHAR},
+        shorter_getter_clz = #{shorterGetterClz,jdbcType=VARCHAR},
+        visit_count = #{visitCount,jdbcType=BIGINT},
+        created = #{created,jdbcType=INTEGER},
+        updated = #{updated,jdbcType=INTEGER},
+        isDeleted = #{isDeleted,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateVisitCountByShortUrlBatch" parameterType="java.util.List">
+    update shorterurl
+    set  visit_count=
+    <foreach collection="list" item="item" index="index"
+        separator=" " open="case shorter_url" close="end">
+        when #{item.shorterUrl} then visit_count+#{item.visitCount}
+    </foreach>
+    where shorter_url in
+    <foreach collection="list" index="index" item="item"
+        separator="," open="(" close=")">
+        #{item.shorterUrl}
+    </foreach>
+ </update>
+</mapper>
